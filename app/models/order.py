@@ -1,15 +1,21 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, Float, DateTime
+from enum import Enum as PyEnum
+from sqlalchemy import Column, ForeignKey, Integer, String, Float, DateTime, Enum
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
 from app.core.database import Base
+
+class OrderStatus(str, PyEnum):
+    PENDING = "PENDING"
+    CONFIRMED = "CONFIRMED"
+    CANCELLED = "CANCELLED"
 
 class Order(Base):
     __tablename__ = "orders"
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
-    status = Column(String, default="pending")
+    status = Column(Enum(OrderStatus), default=OrderStatus.PENDING)
     total_amount = Column(Float, default=0.0)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 

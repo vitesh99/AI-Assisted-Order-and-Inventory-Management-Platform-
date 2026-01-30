@@ -4,8 +4,9 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.api import deps
-from app.models import InventoryItem, User
+from app.models import User
 from app.schemas import InventoryItemCreate, InventoryItem as InventoryItemSchema, InventoryItemUpdate
+from app.services.inventory_service import InventoryService
 
 router = APIRouter()
 
@@ -15,7 +16,7 @@ def read_inventory_items(
     skip: int = 0,
     limit: int = 100,
 ) -> Any:
-    return db.query(InventoryItem).offset(skip).limit(limit).all()
+    return InventoryService.get_items(db, skip=skip, limit=limit)
 
 @router.post("/", response_model=InventoryItemSchema)
 def create_inventory_item(
@@ -23,11 +24,7 @@ def create_inventory_item(
     db: Session = Depends(deps.get_db),
     current_user: User = Depends(deps.get_current_user),
 ) -> Any:
-    item = InventoryItem(**item_in.dict())
-    db.add(item)
-    db.commit()
-    db.refresh(item)
-    return item
+    return InventoryService.create_item(db, item_in)
 
 @router.put("/{item_id}", response_model=InventoryItemSchema)
 def update_inventory_item(
@@ -36,12 +33,4 @@ def update_inventory_item(
     db: Session = Depends(deps.get_db),
     current_user: User = Depends(deps.get_current_user),
 ) -> Any:
-    item = db.query(InventoryItem).filter(InventoryItem.id == item_id).first()
-    if not item:
-        raise HTTPException(status_code=404, detail="Item not found")
-    
-    item.quantity = item_in.quantity
-    db.add(item)
-    db.commit()
-    db.refresh(item)
-    return item
+    return InventoryService.update_quantity(db, item_id, item_in.quantity)
