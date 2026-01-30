@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - PROJECT_NAME=AI Inventory Platform
+      - SECRET_KEY=changesthis_to_a_secure_random_secret_key_in_production
+      - ACCESS_TOKEN_EXPIRE_MINUTES=30
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
