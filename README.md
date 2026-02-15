@@ -1,70 +1,204 @@
-# AI-Assisted Order and Inventory Management Platform
+AI-Assisted Order & Inventory Management Platform
 
-**Production-Grade Microservices Architecture**
+Production-Grade Microservices System | FastAPI | PostgreSQL | Docker | React | OpenRouter
 
-This project demonstrates the evolution of a modular monolith into a scalable microservices system. It features separate services for Authentication, Inventory, and Order Management, orchestrated by a Gateway and powered by an AI assistive layer.
+Overview
 
-## Architecture Overview
+This project demonstrates the evolution of a modular backend into a distributed microservices architecture with an AI-assistive layer designed for resilience and scalability.
 
-| Service | Port (Internal) | Port (Exposed) | Responsibility |
-| :--- | :--- | :--- | :--- |
-| **Gateway** | 8000 | 8000 | API Proxy, Routing, Aggregation |
-| **Auth** | 8001 | - | User Management, JWT Issuance |
-| **Inventory** | 8002 | - | Product Catalog, Stock Management |
-| **Orders** | 8003 | - | Order Processing, AI Integration |
-| **Frontend** | 3000 | 3000 | React UI (Vite) |
-| **PostgreSQL**| 5432 | 5432 | Shared DB Instance (Separate Schemas/DBs) |
+The system consists of independently deployable services for Authentication, Inventory Management, and Order Processing, orchestrated through an API Gateway. AI capabilities are integrated as a non-blocking enhancement layer to preserve core system reliability.
 
----
+The design emphasizes:
 
-## 1. Why Microservices?
+Service isolation
 
-We migrated from a modular monolith to microservices to achieve:
--   **Independent Scalability**: Examples: Scaling the `order-service` during Black Friday without duplicating `inventory-service`.
--   **Fault Isolation**: If the `ai-module` in `order-service` crashes or hangs, it does not affect `login` (Auth) or `product-browsing` (Inventory).
--   **Technology Agnosticism**: Each service can technically use a different stack (though we stuck to FastAPI/Python for consistency).
--   **Team Autonomy**: Different teams can own different services.
+Stateless authentication
 
-## 2. Trade-offs (Monolith vs Microservices)
+Fault tolerance
 
-| Feature | Modular Monolith | Microservices (Current) |
-| :--- | :--- | :--- |
-| **Complexity** | Low (Single codebase) | High (Distributed system, net calls) |
-| **Deployment** | Simple (One Docker container) | Complex (Orchestration required) |
-| **Consistency** | ACID Transactions (easy) | Eventual Consistency (harder) |
-| **Latency** | Function calls (nanoseconds) | HTTP/RPC calls (milliseconds) |
+Graceful degradation
 
-**We chose Microservices here/now to demonstrate advanced architectural patterns (Gateway, Stateless Auth, Inter-service communication).**
+Production-ready containerization
 
-## 3. Storage Strategy
+High-Level Architecture
+Service	Internal Port	Exposed Port	Responsibility
+API Gateway	8000	8000	Routing, request aggregation, entry point
+Auth Service	8001	—	User management, JWT issuance
+Inventory	8002	—	Product catalog & stock management
+Orders	8003	—	Order lifecycle & AI integration
+Frontend	3000	3000	React (Vite) UI
+PostgreSQL	5432	5432	Persistent storage (isolated schemas)
 
--   **Database**: PostgreSQL is used.
--   **Isolation**: Each service connects to its own logical database (`ai_inventory_auth`, `ai_inventory_orders`, etc.).
--   **No Shared State**: Services do NOT read each other's tables. They communicate via HTTP APIs.
+All backend services are containerized and orchestrated using Docker Compose.
 
-## 4. AI Isolation Strategy
+Architectural Decisions
+1. Microservices Decomposition
 
-The AI Layer is embedded within the **Order Service** but runs as a **Background Task**.
--   **Non-Blocking**: Order creation returns immediately. AI runs asynchronously.
--   **Resilient**: If OpenRouter/Gemini is down, the order is still created. The summary field just remains empty (Graceful Degradation).
--   **Circuit Breaker**: We use timeouts and try/catch blocks to ensure AI failures don't crash the service.
+The system was refactored from a modular monolith into independently deployable services based on clear domain boundaries:
 
-## 5. Failure Handling
+Auth → Identity & security
 
--   **Gateway**: Handles routing failures (503 Service Unavailable).
--   **Inter-Service**: `InventoryClient` in `order-service` handles connection errors to Inventory.
--   **Auth**: Stateless JWTs mean `order-service` validates tokens without hitting `auth-service` for every request (High Availability).
+Inventory → Product & stock domain
 
-## 6. SDE Interview Explanation
+Orders → Transactional order processing
 
-*"I took a modular monolith and decomposed it into microservices. I established domain boundaries (Auth, Inventory, Orders) and decoupled the database. I implemented a Gateway pattern to simplify the frontend client. I solved the distributed authentication problem using stateless JWTs with embedded claims. For the AI feature, I used background tasks to ensure the core checkout flow remains fast and reliable, treating AI as an enhancement rather than a critical dependency."*
+This enables:
 
----
+Independent scalability
 
-## How to Run
+Fault isolation
 
-See [SETUP_GUIDE.md](.gemini/antigravity/brain/9ffb0640-3ca5-43e0-8f6d-9b3208db0022/setup_guide.md) (Checking Artifacts) for detailed instructions.
+Parallel development
 
-**Quick Start:**
-1.  **Backend**: `docker-compose up --build`
-2.  **Frontend**: `cd frontend && npm install && npm run dev`
+Clear domain ownership
+
+2. Stateless Authentication
+
+JWT tokens issued by Auth service
+
+Claims embedded within tokens
+
+Services validate tokens locally (no synchronous call to Auth)
+
+This removes authentication as a runtime dependency and improves availability.
+
+3. Data Isolation Strategy
+
+PostgreSQL as persistent store
+
+Logical separation via independent schemas/databases
+
+No cross-service table access
+
+All inter-service communication occurs via HTTP APIs
+
+This enforces service boundaries and prevents tight coupling.
+
+AI Assistive Layer
+
+AI is integrated inside the Order Service as a non-blocking enhancement.
+
+Design Goals
+
+AI must never impact order creation latency
+
+AI failures must not break business flows
+
+AI must degrade gracefully
+
+Implementation Strategy
+
+Background task execution for AI calls
+
+Timeout handling
+
+Exception isolation
+
+Retry logic
+
+Circuit-breaker-like safeguards
+
+If OpenRouter is unavailable:
+
+Order creation succeeds
+
+AI summary remains empty
+
+System continues operating normally
+
+AI is treated as an augmentation layer — not a critical dependency.
+
+Failure Handling & Resilience
+
+Gateway returns appropriate HTTP status codes (503 on downstream failure)
+
+Inventory client handles connection errors explicitly
+
+Services log failures without crashing
+
+Stateless JWT reduces runtime dependency chains
+
+Inter-service calls wrapped with structured error handling
+
+Production Considerations Implemented
+
+Dockerized services
+
+Isolated containers per domain
+
+Environment-based configuration
+
+Structured logging
+
+Async request handling (FastAPI)
+
+Input validation via Pydantic models
+
+Clear separation of concerns (routes / services / schemas)
+
+Trade-offs Considered
+Concern	Monolith	Microservices
+Deployment	Simple	More complex
+Scalability	Coarse	Fine-grained
+Latency	Low	Slightly higher
+Complexity	Lower	Higher
+
+Microservices were chosen to demonstrate distributed system design patterns relevant to production environments.
+
+Tech Stack
+
+Backend:
+
+Python
+
+FastAPI
+
+AsyncIO
+
+PostgreSQL
+
+JWT Authentication
+
+Docker / Docker Compose
+
+Frontend:
+
+React (Vite)
+
+Axios
+
+Minimal, clean UI for operational clarity
+
+AI Layer:
+
+OpenRouter API
+
+Async background execution
+
+Graceful degradation strategy
+
+How to Run
+Backend
+docker-compose up --build
+
+
+Services will be available at:
+
+Gateway → http://localhost:8000
+
+API Docs → http://localhost:8000/docs
+
+Frontend
+cd frontend
+npm install
+npm run dev
+
+
+Frontend runs at:
+
+http://localhost:3000
+
+
+![alt text](<Screenshot 2026-02-15 120423.png>)
+![alt text](<Screenshot 2026-02-15 120439.png>)
+![alt text](<Screenshot 2026-02-15 120514.png>)
