@@ -1,0 +1,24 @@
+﻿--- Starting Data Seed (Modular Monolith) ---
+
+1. Creating Admin User...
+   User already exists. Logging in...
+
+2. Creating Suppliers...
+   Created Supplier: Global Tech Imports
+   Created Supplier: Local widgets Co
+
+3. Creating Inventory...
+   Created: AI Processor Unit
+   Created: Quantum Sensor
+   Created: Holographic Display
+   Created: Neural Interface Headset
+   Created: Smart Battery Pack
+
+4. Creating Seed Orders...
+   Failed Order: {"detail":"Service Unavailable: [Errno -2] Name or service not known"}
+   Failed Order: {"detail":"Service Unavailable: [Errno -2] Name or service not known"}
+   Failed Order: {"detail":"Service Unavailable: [Errno -2] Name or service not known"}
+   Failed Order: {"detail":"Service Unavailable: [Errno -2] Name or service not known"}
+
+--- Seeding Complete ---
+Admin Credentials: admin@example.com / adminpassword

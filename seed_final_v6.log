@@ -1,0 +1,24 @@
+﻿--- Starting Data Seed (Modular Monolith) ---
+
+1. Creating Admin User...
+   User already exists. Logging in...
+
+2. Creating Suppliers...
+   Created Supplier: Global Tech Imports
+   Created Supplier: Local widgets Co
+
+3. Creating Inventory...
+   Created: AI Processor Unit
+   Created: Quantum Sensor
+   Created: Holographic Display
+   Created: Neural Interface Headset
+   Created: Smart Battery Pack
+
+4. Creating Seed Orders...
+   Failed Order: {"detail":"1 validation error for OrderResponse\nitems\n  Error extracting attribute: MissingGreenlet: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s) [type=get_attribute_error, input_value=<app.orders.models.Order object at 0x7b0cb5e4aae0>, input_type=Order]\n    For further information visit https://errors.pydantic.dev/2.5/v/get_attribute_error"}
+   Failed Order: {"detail":"1 validation error for OrderResponse\nitems\n  Error extracting attribute: MissingGreenlet: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s) [type=get_attribute_error, input_value=<app.orders.models.Order object at 0x7b0cb5efd130>, input_type=Order]\n    For further information visit https://errors.pydantic.dev/2.5/v/get_attribute_error"}
+   Failed Order: {"detail":"1 validation error for OrderResponse\nitems\n  Error extracting attribute: MissingGreenlet: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s) [type=get_attribute_error, input_value=<app.orders.models.Order object at 0x7b0cb55c3bf0>, input_type=Order]\n    For further information visit https://errors.pydantic.dev/2.5/v/get_attribute_error"}
+   Failed Order: {"detail":"1 validation error for OrderResponse\nitems\n  Error extracting attribute: MissingGreenlet: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s) [type=get_attribute_error, input_value=<app.orders.models.Order object at 0x7b0cb55c2cf0>, input_type=Order]\n    For further information visit https://errors.pydantic.dev/2.5/v/get_attribute_error"}
+
+--- Seeding Complete ---
+Admin Credentials: admin@example.com / adminpassword

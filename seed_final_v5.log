@@ -1,0 +1,24 @@
+﻿--- Starting Data Seed (Modular Monolith) ---
+
+1. Creating Admin User...
+   User already exists. Logging in...
+
+2. Creating Suppliers...
+   Created Supplier: Global Tech Imports
+   Created Supplier: Local widgets Co
+
+3. Creating Inventory...
+   Created: AI Processor Unit
+   Created: Quantum Sensor
+   Created: Holographic Display
+   Created: Neural Interface Headset
+   Created: Smart Battery Pack
+
+4. Creating Seed Orders...
+   Failed Order: {"detail":"(sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.NotNullViolationError'>: null value in column \"price_at_purchase\" of relation \"order_items\" violates not-null constraint\nDETAIL:  Failing row contains (1, 1, 21, 2, null).\n[SQL: INSERT INTO order_items (order_id, product_id, quantity, price_at_purchase) SELECT p0::INTEGER, p1::INTEGER, p2::INTEGER, p3::FLOAT FROM (VALUES ($1::INTEGER, $2::INTEGER, $3::INTEGER, $4::FLOAT, 0), ($5::INTEGER, $6::INTEGER, $7::INTEGER, $8::FLOAT, 1)) AS imp_sen(p0, p1, p2, p3, sen_counter) ORDER BY sen_counter RETURNING order_items.id, order_items.id AS id__1]\n[parameters: (1, 21, 2, None, 1, 25, 10, None)]\n(Background on this error at: https://sqlalche.me/e/20/gkpj)"}
+   Failed Order: {"detail":"(sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.NotNullViolationError'>: null value in column \"price_at_purchase\" of relation \"order_items\" violates not-null constraint\nDETAIL:  Failing row contains (2, 2, 22, 1, null).\n[SQL: INSERT INTO order_items (order_id, product_id, quantity, price_at_purchase) VALUES ($1::INTEGER, $2::INTEGER, $3::INTEGER, $4::FLOAT) RETURNING order_items.id]\n[parameters: (2, 22, 1, None)]\n(Background on this error at: https://sqlalche.me/e/20/gkpj)"}
+   Failed Order: {"detail":"(sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.NotNullViolationError'>: null value in column \"price_at_purchase\" of relation \"order_items\" violates not-null constraint\nDETAIL:  Failing row contains (3, 3, 23, 2, null).\n[SQL: INSERT INTO order_items (order_id, product_id, quantity, price_at_purchase) VALUES ($1::INTEGER, $2::INTEGER, $3::INTEGER, $4::FLOAT) RETURNING order_items.id]\n[parameters: (3, 23, 2, None)]\n(Background on this error at: https://sqlalche.me/e/20/gkpj)"}
+   Failed Order: {"detail":"(sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.NotNullViolationError'>: null value in column \"price_at_purchase\" of relation \"order_items\" violates not-null constraint\nDETAIL:  Failing row contains (4, 4, 24, 5, null).\n[SQL: INSERT INTO order_items (order_id, product_id, quantity, price_at_purchase) VALUES ($1::INTEGER, $2::INTEGER, $3::INTEGER, $4::FLOAT) RETURNING order_items.id]\n[parameters: (4, 24, 5, None)]\n(Background on this error at: https://sqlalche.me/e/20/gkpj)"}
+
+--- Seeding Complete ---
+Admin Credentials: admin@example.com / adminpassword

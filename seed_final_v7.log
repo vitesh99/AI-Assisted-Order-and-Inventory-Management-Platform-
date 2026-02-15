@@ -1,0 +1,24 @@
+﻿--- Starting Data Seed (Modular Monolith) ---
+
+1. Creating Admin User...
+   User already exists. Logging in...
+
+2. Creating Suppliers...
+   Created Supplier: Global Tech Imports
+   Created Supplier: Local widgets Co
+
+3. Creating Inventory...
+   Created: AI Processor Unit
+   Created: Quantum Sensor
+   Created: Holographic Display
+   Created: Neural Interface Headset
+   Created: Smart Battery Pack
+
+4. Creating Seed Orders...
+   Created Order ID: 9
+   Created Order ID: 10
+   Created Order ID: 11
+   Created Order ID: 12
+
+--- Seeding Complete ---
+Admin Credentials: admin@example.com / adminpassword

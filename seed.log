@@ -1,0 +1,18 @@
+﻿--- Starting Data Seed (Modular Monolith) ---
+
+1. Creating Admin User...
+   User already exists. Logging in...
+
+2. Creating Suppliers...
+   Skipped Supplier Global Tech Imports (Status 500)
+   Skipped Supplier Local widgets Co (Status 500)
+
+3. Creating Inventory...
+   Failed to create AI Processor Unit: 500 - Internal Server Error
+   Failed to create Quantum Sensor: 500 - Internal Server Error
+   Failed to create Holographic Display: 500 - Internal Server Error
+   Failed to create Neural Interface Headset: 500 - Internal Server Error
+   Failed to create Smart Battery Pack: 500 - Internal Server Error
+
+4. Creating Seed Orders...
+Seed failed: list index out of range. Is the backend running at http://localhost:8000/api/v1?

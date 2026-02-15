@@ -1,0 +1,9 @@
+﻿--- AI Connection Test ---
+Key Length: 73
+Model: google/gemini-2.0-flash-lite-preview-02-05:free
+
+Attempting to connect to OpenRouter...
+INFO:httpx:HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 400 Bad Request"
+
+FAILURE! Error details:
+Error code: 400 - {'error': {'message': 'google/gemini-2.0-flash-lite-preview-02-05:free is not a valid model ID', 'code': 400}, 'user_id': 'user_31gUGmcMRR12ZkYy1TUe1Z8lHa8'}

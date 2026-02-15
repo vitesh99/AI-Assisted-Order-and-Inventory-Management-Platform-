@@ -1,0 +1,7 @@
+﻿INFO:     172.20.0.8:50780 - "POST /api/v1/suppliers/ HTTP/1.1" 500 Internal Server Error
+INFO:     172.20.0.8:50782 - "POST /api/v1/suppliers/ HTTP/1.1" 500 Internal Server Error
+INFO:     172.20.0.8:50786 - "POST /api/v1/inventory/ HTTP/1.1" 500 Internal Server Error
+INFO:     172.20.0.8:50802 - "POST /api/v1/inventory/ HTTP/1.1" 500 Internal Server Error
+INFO:     172.20.0.8:50814 - "POST /api/v1/inventory/ HTTP/1.1" 500 Internal Server Error
+INFO:     172.20.0.8:50820 - "POST /api/v1/inventory/ HTTP/1.1" 500 Internal Server Error
+INFO:     172.20.0.8:50834 - "POST /api/v1/inventory/ HTTP/1.1" 500 Internal Server Error
